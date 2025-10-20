@@ -20,7 +20,6 @@ import Conte16 from './pages/conte16.vue'
 import Conte17 from './pages/conte17.vue'
 import Conte18 from './pages/conte18.vue'
 
-
 const routes = [
   { path: '/', component: Home },
   { path: '/conte', component: Conte },
@@ -42,12 +41,15 @@ const routes = [
   { path: '/conte16', component: Conte16 },
   { path: '/conte17', component: Conte17 },
   { path: '/conte18', component: Conte18 },
-
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  // 🟢 Important : indique le nom du repo ici
+  history: createWebHistory('/SAE_501_Thomas/'),
   routes,
+  scrollBehavior() {
+    return { top: 0 }
+  },
 })
 
 export default router
