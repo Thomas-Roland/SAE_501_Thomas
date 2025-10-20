@@ -21,13 +21,6 @@ import Conte17 from './pages/conte17.vue'
 import Conte18 from './pages/conte18.vue'
 
 
-
-
-
-
-
-
-
 const routes = [
   { path: '/', component: Home },
   { path: '/conte', component: Conte },

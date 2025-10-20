@@ -36,7 +36,7 @@ export default {
 .home {
   text-align: center;
   padding: 2rem;
-  position: relative; /* permet aux clics de passer correctement */
+  position: relative; 
   z-index: 1;
 }
 
@@ -49,7 +49,7 @@ export default {
   border: none;
   cursor: pointer;
   transition: transform 0.2s, background-color 0.3s;
-  pointer-events: auto; /* garantit que le bouton capte les clics */
+  pointer-events: auto; 
   position: relative;
   z-index: 2;
 }
@@ -64,7 +64,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  pointer-events: auto; /* autorise les clics */
+  pointer-events: auto; 
   position: relative;
   z-index: 2;
 }
