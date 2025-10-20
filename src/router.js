@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from './pages/home.vue'
 import Conte from './pages/conte.vue'
 import Conte1 from './pages/conte1.vue'
@@ -44,8 +44,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  // 🟢 Important : indique le nom du repo ici
-  history: createWebHistory('/SAE_501_Thomas/'),
+  history: createWebHashHistory(), // ✅ le mode hash règle le problème GitHub Pages
   routes,
   scrollBehavior() {
     return { top: 0 }
