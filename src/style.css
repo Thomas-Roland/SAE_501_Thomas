@@ -1,0 +1,175 @@
+body {
+  font-family: 'Great Vibes', cursive !important;
+}
+/* --- Diaporama plein écran --- */
+.slideshow {
+  position: relative;
+  width: 100vw;
+  height: 100vh; /* Plein écran */
+  overflow: hidden; /* Empêche le défilement */
+  background-color: #000; /* Fond noir en attendant l’image */
+}
+
+/* Image principale du conte */
+.image-conte {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom; /* Priorité au bas de l’image */
+  display: block;
+}
+
+/* --- Bloc texte + boutons --- */
+.texte-conte {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  min-height: 15%;
+  background: rgba(245, 245, 220, 0.92); /* beige clair */
+  padding: 12px 20px;
+  font-size: 1rem;
+  color: #000;
+  text-align: center;
+  font-family: 'Great Vibes', cursive; /* 💫 Police féérique */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 5;
+}
+
+.texte-conte p {
+  font-family: 'Great Vibes', cursive !important;
+  font-size: 1.6rem;
+  line-height: 1.5;
+}
+
+/* Animation du texte */
+.texte-conte.animate {
+  animation: fadeSlide 1s ease;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Boutons d’action --- */
+.actions-top {
+  margin-top: 10px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.actions-top button {
+  background: rgba(255, 255, 255, 0.85);
+  border: none;
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  font-family: 'Great Vibes', cursive;
+  letter-spacing: 0.5px;
+}
+
+.actions-top button:hover {
+  background: white;
+  transform: scale(1.05);
+}
+
+/* --- Musique de fond --- */
+.music {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  margin: 0;
+}
+
+/* --- Animation d’apparition des boutons --- */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.8s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .texte-conte {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .actions-top button {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .texte-conte {
+    min-height: 20%;
+  }
+
+  .actions-top {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+/* --- Bouton "Donner à manger" --- */
+.feed-button {
+  background-color: #ffb703;
+  border: none;
+  border-radius: 2rem;
+  padding: 8px 16px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, transform 0.2s;
+  font-family: 'Great Vibes', cursive;
+}
+
+.feed-button:hover {
+  background-color: #fb8500;
+  transform: scale(1.05);
+}
+
+
+/* Animation d’apparition (optionnelle mais jolie) */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.next-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+
