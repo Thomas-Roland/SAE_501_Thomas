@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from './pages/Home.vue'
+import Home from './pages/home.vue'
 import Conte from './pages/Conte.vue'
 import Conte1 from './pages/Conte1.vue'
 import Conte2 from './pages/Conte2.vue'
