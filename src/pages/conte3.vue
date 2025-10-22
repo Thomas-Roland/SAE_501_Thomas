@@ -51,11 +51,11 @@ export default {
       showEnterButton: false,
       music: new URL("../assets/audio/just-relax-11157.mp3", import.meta.url).href,
       footstepSound: new URL(
-        "../bruitage/FEETHmn_Pas cours en chaussure sur beton (ID 0514)_LS.mp3",
+        "/bruitage/FEETHmn_Pas cours en chaussure sur beton (ID 0514)_LS.mp3",
         import.meta.url
       ).href,
       doorSound: new URL(
-        "../bruitage/DOORCreak_Grincement de porte 8 (ID 3211)_LS.mp3",
+        "/bruitage/DOORCreak_Grincement de porte 8 (ID 3211)_LS.mp3",
         import.meta.url
       ).href,
       audio: null,

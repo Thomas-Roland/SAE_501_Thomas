@@ -47,7 +47,7 @@ export default {
       showButtons: false,
 
       music: new URL("../assets/audio/just-relax-11157.mp3", import.meta.url).href,
-      footsteps: new URL("../bruitage/FEETHmn_Pas cours en chaussure sur beton (ID 0514)_LS.mp3", import.meta.url).href,
+      footsteps: new URL("/bruitage/FEETHmn_Pas cours en chaussure sur beton (ID 0514)_LS.mp3", import.meta.url).href,
 
       audioMusic: null,
       audioFootsteps: null,

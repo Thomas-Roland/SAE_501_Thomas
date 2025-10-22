@@ -51,7 +51,7 @@ export default {
 
       music: new URL("../assets/audio/just-relax-11157.mp3", import.meta.url).href,
       footstepSound: new URL(
-        "../bruitage/FEETHmn_Pas rapides sur beton (ID 1318)_LS.mp3",
+        "/bruitage/FEETHmn_Pas rapides sur beton (ID 1318)_LS.mp3",
         import.meta.url
       ).href,
 
