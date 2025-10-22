@@ -1,6 +1,5 @@
 <template>
   <div class="conte">
-    <!-- Diaporama plein écran -->
     <div class="slideshow">
       <img
         v-if="currentImage"
@@ -9,14 +8,12 @@
         class="image-conte"
       />
 
-      <!-- Bloc texte + boutons -->
       <div class="texte-conte" :class="{ animate: animateText }">
         <p>
           Le pauvre petit paysan écouta un jour à l’église le prêtre dire :
           « Pour entrer au paradis, il faut marcher droit. »
         </p>
 
-        <!-- Boutons affichés après 5s -->
         <transition name="fade">
           <div class="actions-top" v-if="showNextButton">
             <router-link to="/">
@@ -31,7 +28,6 @@
       </div>
     </div>
 
-    <!-- Musique de fond -->
     <div class="music">
       <audio :src="music" autoplay loop></audio>
     </div>
@@ -63,17 +59,14 @@ export default {
     },
   },
   mounted() {
-    // Lance la musique
     this.audio = new Audio(this.music)
     this.audio.loop = true
     this.audio.play()
 
-    // Change d’image toutes les 0.8s
     this.intervalId = setInterval(() => {
       this.nextImage()
     }, 800)
 
-    // Affiche les boutons une seule fois après 5s
     setTimeout(() => {
       this.showNextButton = true
     }, 5000)

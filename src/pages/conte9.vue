@@ -1,6 +1,5 @@
 <template>
   <div class="conte">
-    <!-- Diaporama -->
     <div class="slideshow">
       <img
         v-if="currentImage"
@@ -10,13 +9,11 @@
       />
     </div>
 
-    <!-- Bloc texte + boutons -->
     <div class="texte-conte" :class="{ animate: animateText }">
       <p ref="conteText">
         Ému, il dit : « Comme tu es maigre, ô mon Dieu ! On ne te donne donc pas à manger ? »
       </p>
 
-      <!-- Boutons -->
       <transition name="fade">
         <div class="actions-top" v-if="showButtons">
           <router-link to="/conte8">
@@ -39,7 +36,6 @@
       </transition>
     </div>
 
-    <!-- Musique de fond -->
     <div class="music">
       <audio :src="music" autoplay loop></audio>
     </div>

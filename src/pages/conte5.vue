@@ -1,7 +1,6 @@
 <template>
   <div class="conte">
 
-    <!-- Image unique -->
     <div class="slideshow">
       <img
         v-if="currentImage"
@@ -11,16 +10,13 @@
       />
     </div>
 
-    <!-- Bloc texte + boutons -->
     <div class="texte-conte" :class="{ animate: animateText }">
       <p ref="conteText">
         Mais l’enfant répondit : « Non, je reste ici, je suis enfin au ciel. »
       </p>
 
-      <!-- Boutons affichés après 5 secondes -->
       <transition name="fade">
         <div class="actions-top" v-if="showNextButton">
-          <!-- 🔙 Bouton de retour vers /conte4 -->
           <router-link to="/conte4">
             <button>Retour</button>
           </router-link>
@@ -32,7 +28,6 @@
       </transition>
     </div>
 
-    <!-- Musique de fond -->
     <div class="music">
       <audio :src="music" autoplay loop></audio>
     </div>
@@ -57,10 +52,8 @@ export default {
     },
   },
   mounted() {
-    // Animation du texte au montage
     this.triggerTextAnimation()
 
-    // Affiche les boutons après 5 secondes
     setTimeout(() => {
       this.showNextButton = true
     }, 5000)

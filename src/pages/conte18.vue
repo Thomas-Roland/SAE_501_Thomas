@@ -1,6 +1,5 @@
 <template>
   <div class="conte">
-    <!-- 🖼️ Diaporama -->
     <div class="slideshow">
       <img
         v-if="currentImage"
@@ -11,7 +10,6 @@
       />
     </div>
 
-    <!-- 📜 Texte + Boutons -->
     <div class="texte-conte" :class="{ animate: animateText }">
       <p>
         Le dimanche, au moment de communier, l’enfant mourut et entra vraiment au festin céleste.
@@ -23,7 +21,6 @@
             <button>Retour</button>
           </router-link>
 
-          <!-- 🔥 Bouton principal -->
           <button class="next-button" @click="entrerFestin">
             Entrer dans le festin céleste
           </button>
@@ -31,7 +28,6 @@
       </transition>
     </div>
 
-    <!-- 🎵 Musique de fond -->
     <div class="music">
       <audio :src="music" autoplay loop></audio>
     </div>
@@ -44,8 +40,8 @@ export default {
   data() {
     return {
       images: [
-        new URL("../img/S20-P1.png", import.meta.url).href, // image d’intro
-        new URL("../img/S20-P4.png", import.meta.url).href, // image finale
+        new URL("../img/S20-P1.png", import.meta.url).href, 
+        new URL("../img/S20-P4.png", import.meta.url).href, 
       ],
       currentIndex: 0,
       zoomActive: true,
@@ -77,26 +73,22 @@ export default {
       })
     },
 
-    // 🔥 Au clic sur "Entrer dans le festin céleste"
     entrerFestin() {
       this.zoomActive = false
       this.showButtons = false
 
-      // Passe à la deuxième image
       this.currentIndex = 1
 
-      // Lance ensuite l’assombrissement après 2 secondes
       setTimeout(() => {
         this.lancerAssombrissement()
       }, 2000)
     },
 
-    // 🌒 Lance l’assombrissement puis redirige vers localhost
     lancerAssombrissement() {
       this.darkenEffect = true
       setTimeout(() => {
         window.location.href = "http://localhost:5173"
-      }, 10000) // redirection après 10 s
+      }, 10000) 
     },
   },
 }
@@ -119,7 +111,6 @@ export default {
   }
 }
 
-/* 🌒 Assombrissement progressif */
 .darken {
   animation: darkenEffect 10s forwards;
 }
@@ -133,7 +124,6 @@ export default {
   }
 }
 
-/* ✨ Animation d’apparition/disparition des boutons */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.8s;

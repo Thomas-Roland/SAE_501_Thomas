@@ -19,14 +19,12 @@
               <button>Retour</button>
             </router-link>
 
-            <!-- ✅ Nouveau bouton “Marcher” -->
             <button @click="nextStep">Marcher</button>
           </div>
         </transition>
       </div>
     </div>
 
-    <!-- Musique de fond -->
     <div class="music">
       <audio :src="music" autoplay loop></audio>
     </div>
@@ -71,7 +69,6 @@ export default {
     this.audio.loop = true
     this.audio.play()
 
-    // Affiche les boutons après quelques secondes
     setTimeout(() => {
       this.showNextButton = true
     }, 3000)
@@ -90,13 +87,11 @@ export default {
       })
     },
 
-    // ✅ Nouvelle méthode pour faire avancer l’image
     nextStep() {
       if (this.currentIndex < this.images.length - 1) {
         this.currentIndex++
         this.triggerTextAnimation()
       } else {
-        // ✅ Quand on est à la dernière image → redirige vers la page suivante
         this.$router.push("/conte2")
       }
     },

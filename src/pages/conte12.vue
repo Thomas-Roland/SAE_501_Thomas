@@ -1,6 +1,5 @@
 <template>
   <div class="conte">
-    <!-- Diaporama -->
     <div class="slideshow">
       <img
         v-if="currentImage"
@@ -10,20 +9,17 @@
       />
     </div>
 
-    <!-- Bloc texte + boutons -->
     <div class="texte-conte" :class="{ animate: animateText }">
       <p ref="conteText">
         La statue lui sembla sourire. Chaque jour, il continua à partager son pain.
       </p>
 
-      <!-- Boutons d’action -->
       <transition name="fade">
         <div class="actions-top" v-if="showButtons">
           <router-link to="/conte11">
             <button>Retour</button>
           </router-link>
 
-          <!-- Bouton Suivant TOUJOURS disponible -->
           <router-link to="/conte13">
             <button class="next-button">Suivant</button>
           </router-link>
@@ -31,7 +27,6 @@
       </transition>
     </div>
 
-    <!-- Musique de fond -->
     <div class="music">
       <audio :src="music" autoplay loop></audio>
     </div>
@@ -58,7 +53,7 @@ export default {
       animateText: false,
       showButtons: false,
       loopCount: 0,
-      maxLoops: 10, // 🔁 10 boucles
+      maxLoops: 10, 
       music: new URL("../assets/audio/just-relax-11157.mp3", import.meta.url).href,
     }
   },
@@ -70,12 +65,10 @@ export default {
   mounted() {
     this.triggerTextAnimation()
 
-    // Afficher les boutons après 5 secondes
     setTimeout(() => {
       this.showButtons = true
     }, 5000)
 
-    // Lancer le diaporama automatique
     this.playSlideshowLoop()
   },
   beforeUnmount() {
@@ -93,11 +86,10 @@ export default {
 
         this.triggerTextAnimation()
 
-        // Arrêter après 10 boucles
         if (this.loopCount >= this.maxLoops) {
           clearInterval(interval)
         }
-      }, 500) // ⚡ 0.5 seconde entre chaque image
+      }, 500) 
     },
     triggerTextAnimation() {
       this.animateText = false

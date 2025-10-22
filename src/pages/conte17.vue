@@ -1,6 +1,5 @@
 <template>
   <div class="conte">
-    <!-- Diaporama -->
     <div class="slideshow">
       <img
         v-if="currentImage"
@@ -10,7 +9,6 @@
       />
     </div>
 
-    <!-- Bloc texte + boutons -->
     <div class="texte-conte" :class="{ animate: animateText }">
       <p ref="conteText">
         Le curé comprit qu’il fallait préparer l’enfant à recevoir la communion.
@@ -28,7 +26,6 @@
       </transition>
     </div>
 
-    <!-- Musique de fond -->
     <div class="music">
       <audio :src="music" autoplay loop></audio>
     </div>
@@ -90,7 +87,7 @@ export default {
 <style>
 
 .zoom {
-  animation: zoomIn 8s ease-in-out forwards; /* ⚡ Plus rapide */
+  animation: zoomIn 8s ease-in-out forwards; 
   transform-origin: center center;
 }
 
@@ -99,7 +96,7 @@ export default {
     transform: scale(1);
   }
   100% {
-    transform: scale(1.2); /* Zoom final à 120% */
+    transform: scale(1.2); 
   }
 }
 

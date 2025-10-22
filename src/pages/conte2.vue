@@ -1,7 +1,6 @@
 <template>
   <div class="conte">
 
-    <!-- Diaporama -->
     <div class="slideshow">
       <img
         v-if="currentImage"
@@ -11,27 +10,22 @@
       />
     </div>
 
-    <!-- Bloc texte + boutons en haut -->
     <div class="texte-conte" :class="{ animate: animateText }">
       <p>
         Son chemin le mena dans une grande ville.
       </p>
 
-      <!-- Boutons affichés après 3s -->
       <transition name="fade">
         <div class="actions-top" v-if="showNextButton">
-          <!-- 🔄 Bouton de retour vers /conte1 -->
           <router-link to="/conte1">
             <button>Retour</button>
           </router-link>
 
-          <!-- ✅ Nouveau bouton “Marcher” -->
           <button @click="nextStep">Marcher</button>
         </div>
       </transition>
     </div>
 
-    <!-- Musique de fond -->
     <div class="music">
       <audio :src="music" autoplay loop></audio>
     </div>
@@ -70,12 +64,10 @@ export default {
     },
   },
   mounted() {
-    // ✅ Joue la musique
     this.audio = new Audio(this.music)
     this.audio.loop = true
     this.audio.play()
 
-    // ✅ Affiche les boutons après un petit délai
     setTimeout(() => {
       this.showNextButton = true
     }, 3000)
@@ -94,13 +86,11 @@ export default {
       })
     },
 
-    // ✅ Fait avancer l'image à chaque clic
     nextStep() {
       if (this.currentIndex < this.images.length - 1) {
         this.currentIndex++
         this.triggerTextAnimation()
       } else {
-        // ✅ Quand on atteint la dernière image → redirige vers /conte3
         this.$router.push("/conte3")
       }
     },

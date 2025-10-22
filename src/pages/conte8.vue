@@ -1,7 +1,6 @@
 <template>
   <div class="conte">
 
-    <!-- Diaporama (image unique) -->
     <div class="slideshow">
       <img
         v-if="currentImage"
@@ -11,13 +10,11 @@
       />
     </div>
 
-    <!-- Bloc texte + boutons -->
     <div class="texte-conte" :class="{ animate: animateText }">
       <p ref="conteText">
         Ému, il dit : « Comme tu es maigre, ô mon Dieu ! On ne te donne donc pas à manger ? »
       </p>
 
-      <!-- Boutons affichés après 5 secondes -->
       <transition name="fade">
         <div class="actions-top" v-if="showButtons">
           <router-link to="/conte7">
@@ -31,7 +28,6 @@
       </transition>
     </div>
 
-    <!-- Musique de fond -->
     <div class="music">
       <audio :src="music" autoplay loop></audio>
     </div>
@@ -44,7 +40,7 @@ export default {
   data() {
     return {
       images: [
-        new URL("../img/S9-P5.png", import.meta.url).href, // une seule image
+        new URL("../img/S9-P5.png", import.meta.url).href, 
       ],
       currentIndex: 0,
       animateText: false,
@@ -58,10 +54,8 @@ export default {
     },
   },
   mounted() {
-    // Lance l’animation du texte
     this.triggerTextAnimation()
 
-    // Affiche les boutons après 5 secondes
     setTimeout(() => {
       this.showButtons = true
     }, 5000)

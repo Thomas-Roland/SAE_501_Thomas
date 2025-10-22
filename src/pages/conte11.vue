@@ -1,7 +1,6 @@
 <template>
   <div class="conte">
 
-    <!-- Diaporama -->
     <div class="slideshow">
       <img
         v-if="currentImage"
@@ -11,13 +10,11 @@
       />
     </div>
 
-    <!-- Bloc texte + boutons -->
     <div class="texte-conte" :class="{ animate: animateText }">
       <p ref="conteText">
         À la porte de l’église, une vieille femme mendiait. L’enfant lui donna la moitié de son pain.
       </p>
 
-      <!-- Boutons -->
       <transition name="fade">
         <div class="actions-top" v-if="showButtons">
           <router-link to="/conte10">
@@ -40,7 +37,6 @@
       </transition>
     </div>
 
-    <!-- Musique de fond -->
     <div class="music">
       <audio :src="music" autoplay loop></audio>
     </div>
@@ -76,10 +72,8 @@ export default {
   mounted() {
     this.triggerTextAnimation()
 
-    // Affiche les deux premières images seulement
     this.playFirstTwoImages()
 
-    // Affiche les boutons après les deux images
     setTimeout(() => {
       this.showButtons = true
     }, 2500)
@@ -89,7 +83,6 @@ export default {
     window.speechSynthesis.cancel()
   },
   methods: {
-    // Joue les deux premières images
     playFirstTwoImages() {
       this.slideshowInterval = setInterval(() => {
         if (this.currentIndex < 1) {
@@ -101,19 +94,16 @@ export default {
       }, 1000)
     },
 
-    // Quand l’utilisateur clique sur “Donner à manger”
     giveFood() {
       this.hasGivenFood = true
       this.showButtons = false
 
-      // Relancer le diaporama pour les images restantes
       this.slideshowInterval = setInterval(() => {
         if (this.currentIndex < this.images.length - 1) {
           this.currentIndex++
           this.triggerTextAnimation()
         } else {
           clearInterval(this.slideshowInterval)
-          // Quand tout est fini, réafficher les boutons avec “Suivant” activé
           this.showButtons = true
         }
       }, 1000)
