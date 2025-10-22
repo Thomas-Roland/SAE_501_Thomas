@@ -24,10 +24,6 @@
         </transition>
       </div>
     </div>
-
-    <div class="music">
-      <audio :src="music" autoplay loop></audio>
-    </div>
   </div>
 </template>
 
@@ -55,30 +51,39 @@ export default {
       animateText: false,
       showNextButton: false,
       music: new URL("../assets/audio/just-relax-11157.mp3", import.meta.url).href,
+      footstepSound: new URL(
+        "../bruitage/FEETHmn_Pas cours en chaussure sur beton (ID 0514)_LS.mp3",
+        import.meta.url
+      ).href,
       audio: null,
       isMusicPlaying: true,
     }
   },
+
   computed: {
     currentImage() {
       return this.images[this.currentIndex] || null
     },
   },
+
   mounted() {
     this.audio = new Audio(this.music)
     this.audio.loop = true
+    this.audio.volume = 0.2 
     this.audio.play()
 
     setTimeout(() => {
       this.showNextButton = true
     }, 3000)
   },
+
   beforeUnmount() {
     if (this.audio) {
       this.audio.pause()
       this.audio = null
     }
   },
+
   methods: {
     triggerTextAnimation() {
       this.animateText = false
@@ -87,7 +92,19 @@ export default {
       })
     },
 
+    playFootstepSound() {
+      const sound = new Audio(this.footstepSound)
+      sound.volume = 1.0
+      sound.play()
+      setTimeout(() => {
+        sound.pause()
+        sound.currentTime = 0
+      }, 1000)
+    },
+
     nextStep() {
+      this.playFootstepSound()
+
       if (this.currentIndex < this.images.length - 1) {
         this.currentIndex++
         this.triggerTextAnimation()

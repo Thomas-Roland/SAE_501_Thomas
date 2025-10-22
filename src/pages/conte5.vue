@@ -1,6 +1,5 @@
 <template>
   <div class="conte">
-
     <div class="slideshow">
       <img
         v-if="currentImage"
@@ -27,10 +26,6 @@
         </div>
       </transition>
     </div>
-
-    <div class="music">
-      <audio :src="music" autoplay loop></audio>
-    </div>
   </div>
 </template>
 
@@ -44,20 +39,35 @@ export default {
       animateText: false,
       showNextButton: false,
       music: new URL("../assets/audio/just-relax-11157.mp3", import.meta.url).href,
+      audio: null,
     }
   },
+
   computed: {
     currentImage() {
       return this.images[this.currentIndex] || null
     },
   },
-  mounted() {
-    this.triggerTextAnimation()
 
+  mounted() {
+    this.audio = new Audio(this.music)
+    this.audio.loop = true
+    this.audio.volume = 0.2
+    this.audio.play()
+
+    this.triggerTextAnimation()
     setTimeout(() => {
       this.showNextButton = true
     }, 5000)
   },
+
+  beforeUnmount() {
+    if (this.audio) {
+      this.audio.pause()
+      this.audio = null
+    }
+  },
+
   methods: {
     triggerTextAnimation() {
       this.animateText = false

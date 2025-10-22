@@ -28,14 +28,14 @@
     </div>
 
     <div class="music">
-      <audio :src="music" autoplay loop></audio>
+      <audio ref="musicAudio" :src="music" autoplay loop></audio>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Conte9",
+  name: "Conte12",
   data() {
     return {
       images: [
@@ -53,30 +53,49 @@ export default {
       animateText: false,
       showButtons: false,
       loopCount: 0,
-      maxLoops: 10, 
+      maxLoops: 10,
       music: new URL("../assets/audio/just-relax-11157.mp3", import.meta.url).href,
+      slideshowInterval: null,
     }
   },
+
   computed: {
     currentImage() {
       return this.images[this.currentIndex] || null
     },
   },
+
   mounted() {
     this.triggerTextAnimation()
+    this.playSlideshowLoop()
+
+    const audio = this.$refs.musicAudio
+    if (audio) {
+      audio.volume = 0.2
+    }
 
     setTimeout(() => {
       this.showButtons = true
     }, 5000)
-
-    this.playSlideshowLoop()
   },
+
   beforeUnmount() {
     window.speechSynthesis.cancel()
+
+    if (this.slideshowInterval) {
+      clearInterval(this.slideshowInterval)
+    }
+
+    const audio = this.$refs.musicAudio
+    if (audio) {
+      audio.pause()
+      audio.src = ""
+    }
   },
+
   methods: {
     playSlideshowLoop() {
-      const interval = setInterval(() => {
+      this.slideshowInterval = setInterval(() => {
         if (this.currentIndex < this.images.length - 1) {
           this.currentIndex++
         } else {
@@ -87,10 +106,11 @@ export default {
         this.triggerTextAnimation()
 
         if (this.loopCount >= this.maxLoops) {
-          clearInterval(interval)
+          clearInterval(this.slideshowInterval)
         }
-      }, 500) 
+      }, 500)
     },
+
     triggerTextAnimation() {
       this.animateText = false
       void this.$nextTick(() => {

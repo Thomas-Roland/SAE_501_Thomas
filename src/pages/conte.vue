@@ -27,10 +27,6 @@
         </transition>
       </div>
     </div>
-
-    <div class="music">
-      <audio :src="music" autoplay loop></audio>
-    </div>
   </div>
 </template>
 
@@ -61,8 +57,10 @@ export default {
   mounted() {
     this.audio = new Audio(this.music)
     this.audio.loop = true
+    this.audio.volume = 0.1 
     this.audio.play()
 
+    
     this.intervalId = setInterval(() => {
       this.nextImage()
     }, 800)

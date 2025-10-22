@@ -11,7 +11,8 @@
 
     <div class="texte-conte" :class="{ animate: animateText }">
       <p ref="conteText">
-Dès qu’il fut rétabli, il retourna prier devant l’Enfant Jésus.      </p>
+        Dès qu’il fut rétabli, il retourna prier devant l’Enfant Jésus.
+      </p>
 
       <transition name="fade">
         <div class="actions-top" v-if="showEnterButton">
@@ -23,16 +24,12 @@ Dès qu’il fut rétabli, il retourna prier devant l’Enfant Jésus.      </p>
         </div>
       </transition>
     </div>
-
-    <div class="music">
-      <audio :src="music" autoplay loop></audio>
-    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Conte4",
+  name: "Conte14",
   data() {
     return {
       images: [
@@ -52,29 +49,61 @@ export default {
       intervalId: null,
       animateText: false,
       showEnterButton: false,
+
       music: new URL("../assets/audio/just-relax-11157.mp3", import.meta.url).href,
+      footstepSound: new URL(
+        "../bruitage/FEETHmn_Pas cours en chaussure sur beton (ID 0514)_LS.mp3",
+        import.meta.url
+      ).href,
+      doorSound: new URL(
+        "../bruitage/DOORCreak_Grincement de porte 8 (ID 3211)_LS.mp3",
+        import.meta.url
+      ).href,
+
       audio: null,
+      footstepAudio: null,
     }
   },
+
   computed: {
     currentImage() {
       return this.images[this.currentIndex] || null
     },
   },
+
   mounted() {
     this.audio = new Audio(this.music)
     this.audio.loop = true
+    this.audio.volume = 0.2
     this.audio.play()
+
+    this.footstepAudio = new Audio(this.footstepSound)
+    this.footstepAudio.loop = true
+    this.footstepAudio.volume = 1.0
+    this.footstepAudio.play()
+
+    setTimeout(() => {
+      if (this.footstepAudio) {
+        this.footstepAudio.pause()
+        this.footstepAudio = null
+      }
+    }, 6500)
 
     this.startSlideshow()
   },
+
   beforeUnmount() {
     clearInterval(this.intervalId)
     if (this.audio) {
       this.audio.pause()
       this.audio = null
     }
+    if (this.footstepAudio) {
+      this.footstepAudio.pause()
+      this.footstepAudio = null
+    }
   },
+
   methods: {
     startSlideshow() {
       this.intervalId = setInterval(() => {
@@ -84,7 +113,7 @@ export default {
         } else {
           clearInterval(this.intervalId)
           this.intervalId = null
-          this.showEnterButton = true 
+          this.showEnterButton = true
         }
       }, 700)
     },
@@ -97,13 +126,22 @@ export default {
     },
 
     enterChurch() {
+      if (this.footstepAudio) {
+        this.footstepAudio.pause()
+        this.footstepAudio = null
+      }
+
+      const doorAudio = new Audio(this.doorSound)
+      doorAudio.volume = 1.0
+      doorAudio.play()
+
       this.showEnterButton = false
-      this.currentIndex = this.images.length - 1 
+      this.currentIndex = this.images.length - 1
       this.triggerTextAnimation()
 
       setTimeout(() => {
         this.$router.push("/conte15")
-      }, 1500)
+      }, 1800)
     },
   },
 }

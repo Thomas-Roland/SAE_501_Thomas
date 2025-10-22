@@ -11,7 +11,8 @@
 
     <div class="texte-conte" :class="{ animate: animateText }">
       <p ref="conteText">
-Le Seigneur répondit : « J’ai vu ta bonne volonté. Dimanche prochain, tu viendras à mon festin céleste. »      </p>
+        Le Seigneur répondit : « J’ai vu ta bonne volonté. Dimanche prochain, tu viendras à mon festin céleste. »
+      </p>
 
       <transition name="fade">
         <div class="actions-top" v-if="showButtons">
@@ -25,16 +26,12 @@ Le Seigneur répondit : « J’ai vu ta bonne volonté. Dimanche prochain, tu vi
         </div>
       </transition>
     </div>
-
-    <div class="music">
-      <audio :src="music" autoplay loop></audio>
-    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Conte9",
+  name: "Conte16",
   data() {
     return {
       images: [
@@ -43,26 +40,40 @@ export default {
       currentIndex: 0,
       animateText: false,
       showButtons: false,
+
       music: new URL("../assets/audio/just-relax-11157.mp3", import.meta.url).href,
+      audioMusic: null,
     }
   },
+
   computed: {
     currentImage() {
       return this.images[this.currentIndex] || null
     },
   },
+
   mounted() {
+    this.audioMusic = new Audio(this.music)
+    this.audioMusic.loop = true
+    this.audioMusic.volume = 0.2
+    this.audioMusic.play()
+
     this.triggerTextAnimation()
+    this.playSlideshowOnce()
 
     setTimeout(() => {
       this.showButtons = true
     }, 5000)
-
-    this.playSlideshowOnce()
   },
+
   beforeUnmount() {
+    if (this.audioMusic) {
+      this.audioMusic.pause()
+      this.audioMusic = null
+    }
     window.speechSynthesis.cancel()
   },
+
   methods: {
     playSlideshowOnce() {
       const interval = setInterval(() => {
@@ -70,15 +81,13 @@ export default {
           this.currentIndex++
           this.triggerTextAnimation()
         } else {
-          clearInterval(interval) 
+          clearInterval(interval)
         }
-      }, 500) 
+      }, 500)
     },
     triggerTextAnimation() {
       this.animateText = false
-      void this.$nextTick(() => {
-        this.animateText = true
-      })
+      void this.$nextTick(() => (this.animateText = true))
     },
   },
 }

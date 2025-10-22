@@ -37,7 +37,7 @@
     </div>
 
     <div class="music">
-      <audio :src="music" autoplay loop></audio>
+      <audio ref="musicAudio" :src="music" autoplay loop></audio>
     </div>
   </div>
 </template>
@@ -63,27 +63,43 @@ export default {
       music: new URL("../assets/audio/just-relax-11157.mp3", import.meta.url).href,
     }
   },
+
   computed: {
     currentImage() {
       return this.images[this.currentIndex] || null
     },
   },
+
   mounted() {
     this.triggerTextAnimation()
+
+    const audio = this.$refs.musicAudio
+    if (audio) {
+      audio.volume = 0.2
+    }
 
     setTimeout(() => {
       this.showButtons = true
     }, 5000)
   },
+
   beforeUnmount() {
+    const audio = this.$refs.musicAudio
+    if (audio) {
+      audio.pause()
+      audio.src = ""
+    }
+
     window.speechSynthesis.cancel()
   },
+
   methods: {
     startSlideshow() {
       this.showFeedButton = false
       this.feedDone = true
       this.playSlideshowOnce()
     },
+
     playSlideshowOnce() {
       const interval = setInterval(() => {
         if (this.currentIndex < this.images.length - 1) {
@@ -94,6 +110,7 @@ export default {
         }
       }, 1000)
     },
+
     triggerTextAnimation() {
       this.animateText = false
       void this.$nextTick(() => {

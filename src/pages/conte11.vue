@@ -38,14 +38,14 @@
     </div>
 
     <div class="music">
-      <audio :src="music" autoplay loop></audio>
+      <audio ref="musicAudio" :src="music" autoplay loop></audio>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Conte10",
+  name: "Conte11", 
   data() {
     return {
       images: [
@@ -64,24 +64,38 @@ export default {
       slideshowInterval: null,
     }
   },
+
   computed: {
     currentImage() {
       return this.images[this.currentIndex] || null
     },
   },
+
   mounted() {
     this.triggerTextAnimation()
-
     this.playFirstTwoImages()
+
+    const audio = this.$refs.musicAudio
+    if (audio) {
+      audio.volume = 0.2
+    }
 
     setTimeout(() => {
       this.showButtons = true
     }, 2500)
   },
+
   beforeUnmount() {
     clearInterval(this.slideshowInterval)
     window.speechSynthesis.cancel()
+
+    const audio = this.$refs.musicAudio
+    if (audio) {
+      audio.pause()
+      audio.src = ""
+    }
   },
+
   methods: {
     playFirstTwoImages() {
       this.slideshowInterval = setInterval(() => {

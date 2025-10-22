@@ -27,10 +27,6 @@
         </div>
       </transition>
     </div>
-
-    <div class="music">
-      <audio :src="music" autoplay loop></audio>
-    </div>
   </div>
 </template>
 
@@ -48,23 +44,37 @@ export default {
       animateText: false,
       showButtons: false,
       music: new URL("../assets/audio/just-relax-11157.mp3", import.meta.url).href,
+      audio: null,
     }
   },
+
   computed: {
     currentImage() {
       return this.images[this.currentIndex] || null
     },
   },
+
   mounted() {
+    this.audio = new Audio(this.music)
+    this.audio.loop = true
+    this.audio.volume = 0.2
+    this.audio.play()
+
     this.startSlideshow()
 
     setTimeout(() => {
       this.showButtons = true
     }, 5000)
   },
+
   beforeUnmount() {
     clearInterval(this.intervalId)
+    if (this.audio) {
+      this.audio.pause()
+      this.audio = null
+    }
   },
+
   methods: {
     startSlideshow() {
       this.animateText = true
@@ -76,8 +86,9 @@ export default {
           clearInterval(this.intervalId)
           this.intervalId = null
         }
-      }, 1000) 
+      }, 1000)
     },
+
     triggerTextAnimation() {
       this.animateText = false
       void this.$nextTick(() => {

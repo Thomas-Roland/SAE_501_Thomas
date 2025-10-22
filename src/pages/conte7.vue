@@ -1,6 +1,5 @@
 <template>
   <div class="conte">
-
     <div class="slideshow">
       <img
         v-if="currentImage"
@@ -27,10 +26,6 @@
         </div>
       </transition>
     </div>
-
-    <div class="music">
-      <audio :src="music" autoplay loop></audio>
-    </div>
   </div>
 </template>
 
@@ -50,25 +45,58 @@ export default {
       intervalId: null,
       animateText: false,
       showButtons: false,
+
       music: new URL("../assets/audio/just-relax-11157.mp3", import.meta.url).href,
+      footsteps: new URL("../bruitage/FEETHmn_Pas cours en chaussure sur beton (ID 0514)_LS.mp3", import.meta.url).href,
+
+      audioMusic: null,
+      audioFootsteps: null,
     }
   },
+
   computed: {
     currentImage() {
       return this.images[this.currentIndex] || null
     },
   },
+
   mounted() {
+    this.audioMusic = new Audio(this.music)
+    this.audioMusic.loop = true
+    this.audioMusic.volume = 0.2
+    this.audioMusic.play()
+
+    this.audioFootsteps = new Audio(this.footsteps)
+    this.audioFootsteps.volume = 0.8
+    this.audioFootsteps.play()
+
+    setTimeout(() => {
+      if (this.audioFootsteps) {
+        this.audioFootsteps.pause()
+        this.audioFootsteps.currentTime = 0
+        this.audioFootsteps = null
+      }
+    }, 4000)
+
     this.startSlideshow()
 
     setTimeout(() => {
       this.showButtons = true
     }, 5000)
   },
+
   beforeUnmount() {
     clearInterval(this.intervalId)
-    window.speechSynthesis.cancel()
+    if (this.audioMusic) {
+      this.audioMusic.pause()
+      this.audioMusic = null
+    }
+    if (this.audioFootsteps) {
+      this.audioFootsteps.pause()
+      this.audioFootsteps = null
+    }
   },
+
   methods: {
     startSlideshow() {
       this.animateText = true
@@ -80,7 +108,7 @@ export default {
           clearInterval(this.intervalId)
           this.intervalId = null
         }
-      }, 1000) 
+      }, 1000)
     },
     triggerTextAnimation() {
       this.animateText = false

@@ -26,16 +26,12 @@
         </div>
       </transition>
     </div>
-
-    <div class="music">
-      <audio :src="music" autoplay loop></audio>
-    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Conte9",
+  name: "Conte15",
   data() {
     return {
       images: [
@@ -47,26 +43,59 @@ export default {
       currentIndex: 0,
       animateText: false,
       showButtons: false,
+
       music: new URL("../assets/audio/just-relax-11157.mp3", import.meta.url).href,
+      footsteps: new URL(
+        "../bruitage/FEETHmn_Pas cours en chaussure sur beton (ID 0514)_LS.mp3",
+        import.meta.url
+      ).href,
+
+      audioMusic: null,
+      audioFootsteps: null,
     }
   },
+
   computed: {
     currentImage() {
       return this.images[this.currentIndex] || null
     },
   },
+
   mounted() {
+    this.audioMusic = new Audio(this.music)
+    this.audioMusic.loop = true
+    this.audioMusic.volume = 0.2
+    this.audioMusic.play()
+
+    this.audioFootsteps = new Audio(this.footsteps)
+    this.audioFootsteps.volume = 1.0
+    this.audioFootsteps.play()
+
+    setTimeout(() => {
+      this.audioFootsteps.pause()
+      this.audioFootsteps = null
+    }, 1000)
+
     this.triggerTextAnimation()
+    this.playSlideshowOnce()
 
     setTimeout(() => {
       this.showButtons = true
     }, 5000)
-
-    this.playSlideshowOnce()
   },
+
   beforeUnmount() {
+    if (this.audioMusic) {
+      this.audioMusic.pause()
+      this.audioMusic = null
+    }
+    if (this.audioFootsteps) {
+      this.audioFootsteps.pause()
+      this.audioFootsteps = null
+    }
     window.speechSynthesis.cancel()
   },
+
   methods: {
     playSlideshowOnce() {
       const interval = setInterval(() => {
@@ -74,15 +103,13 @@ export default {
           this.currentIndex++
           this.triggerTextAnimation()
         } else {
-          clearInterval(interval) 
+          clearInterval(interval)
         }
-      }, 500) 
+      }, 500)
     },
     triggerTextAnimation() {
       this.animateText = false
-      void this.$nextTick(() => {
-        this.animateText = true
-      })
+      void this.$nextTick(() => (this.animateText = true))
     },
   },
 }

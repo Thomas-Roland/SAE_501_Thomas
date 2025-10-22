@@ -25,16 +25,12 @@
         </div>
       </transition>
     </div>
-
-    <div class="music">
-      <audio :src="music" autoplay loop></audio>
-    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Conte9",
+  name: "Conte17",
   data() {
     return {
       images: [
@@ -43,24 +39,39 @@ export default {
       currentIndex: 0,
       animateText: false,
       showButtons: false,
+
       music: new URL("../assets/audio/just-relax-11157.mp3", import.meta.url).href,
+      audioMusic: null,
     }
   },
+
   computed: {
     currentImage() {
       return this.images[this.currentIndex] || null
     },
   },
+
   mounted() {
+    this.audioMusic = new Audio(this.music)
+    this.audioMusic.loop = true
+    this.audioMusic.volume = 0.2
+    this.audioMusic.play()
+
     this.triggerTextAnimation()
     setTimeout(() => {
       this.showButtons = true
     }, 5000)
     this.playSlideshowOnce()
   },
+
   beforeUnmount() {
+    if (this.audioMusic) {
+      this.audioMusic.pause()
+      this.audioMusic = null
+    }
     window.speechSynthesis.cancel()
   },
+
   methods: {
     playSlideshowOnce() {
       const interval = setInterval(() => {
@@ -72,11 +83,10 @@ export default {
         }
       }, 500)
     },
+
     triggerTextAnimation() {
       this.animateText = false
-      void this.$nextTick(() => {
-        this.animateText = true
-      })
+      void this.$nextTick(() => (this.animateText = true))
     },
   },
 }
@@ -84,8 +94,7 @@ export default {
 
 <style src="src/style.css"></style>
 
-<style>
-
+<style scoped>
 .zoom {
   animation: zoomIn 8s ease-in-out forwards; 
   transform-origin: center center;
@@ -99,5 +108,4 @@ export default {
     transform: scale(1.2); 
   }
 }
-
 </style>

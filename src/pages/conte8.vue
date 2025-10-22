@@ -1,6 +1,5 @@
 <template>
   <div class="conte">
-
     <div class="slideshow">
       <img
         v-if="currentImage"
@@ -29,7 +28,7 @@
     </div>
 
     <div class="music">
-      <audio :src="music" autoplay loop></audio>
+      <audio ref="musicAudio" :src="music" autoplay loop></audio>
     </div>
   </div>
 </template>
@@ -39,30 +38,43 @@ export default {
   name: "Conte8",
   data() {
     return {
-      images: [
-        new URL("../img/S9-P5.png", import.meta.url).href, 
-      ],
+      images: [new URL("../img/S9-P5.png", import.meta.url).href],
       currentIndex: 0,
       animateText: false,
       showButtons: false,
       music: new URL("../assets/audio/just-relax-11157.mp3", import.meta.url).href,
     }
   },
+
   computed: {
     currentImage() {
       return this.images[this.currentIndex] || null
     },
   },
+
   mounted() {
     this.triggerTextAnimation()
+
+    const audio = this.$refs.musicAudio
+    if (audio) {
+      audio.volume = 0.2
+    }
 
     setTimeout(() => {
       this.showButtons = true
     }, 5000)
   },
+
   beforeUnmount() {
+    const audio = this.$refs.musicAudio
+    if (audio) {
+      audio.pause()
+      audio.src = ""
+    }
+
     window.speechSynthesis.cancel()
   },
+
   methods: {
     triggerTextAnimation() {
       this.animateText = false
