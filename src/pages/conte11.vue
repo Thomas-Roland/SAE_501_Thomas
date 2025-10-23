@@ -12,7 +12,7 @@
 
     <div class="texte-conte" :class="{ animate: animateText }">
       <p ref="conteText">
-        À la porte de l’église, une vieille femme mendiait. L’enfant lui donna la moitié de son pain.
+        À la porte de l’église, une vieille femme mendiait. L’enfant lui donna son pain.
       </p>
 
       <transition name="fade">

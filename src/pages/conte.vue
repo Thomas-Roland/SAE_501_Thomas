@@ -9,8 +9,8 @@
       />
 
       <div class="texte-conte" :class="{ animate: animateText }">
-        <p>
-          Le pauvre petit paysan écouta un jour à l’église le prêtre dire :
+        <p ref="texte">
+          Le pauvre petit paysan écouta un jour à l'église le prêtre dire :
           « Pour entrer au paradis, il faut marcher droit. »
         </p>
 
@@ -57,10 +57,13 @@ export default {
   mounted() {
     this.audio = new Audio(this.music)
     this.audio.loop = true
-    this.audio.volume = 0.1 
-    this.audio.play()
+    this.audio.volume = 0.1
+    const tryPlayMusic = () => {
+      this.audio.play().catch(() => {
+      })
+    }
+    tryPlayMusic()
 
-    
     this.intervalId = setInterval(() => {
       this.nextImage()
     }, 800)
@@ -68,6 +71,12 @@ export default {
     setTimeout(() => {
       this.showNextButton = true
     }, 5000)
+
+    const unlock = () => {
+      tryPlayMusic()
+      document.removeEventListener('pointerdown', unlock)
+    }
+    document.addEventListener('pointerdown', unlock, { once: true })
   },
   beforeUnmount() {
     clearInterval(this.intervalId)
@@ -75,6 +84,7 @@ export default {
       this.audio.pause()
       this.audio = null
     }
+    document.removeEventListener('pointerdown', null)
   },
   methods: {
     nextImage() {
@@ -92,7 +102,7 @@ export default {
       if (this.isMusicPlaying) {
         this.audio.pause()
       } else {
-        this.audio.play()
+        this.audio.play().catch(() => {})
       }
       this.isMusicPlaying = !this.isMusicPlaying
     },

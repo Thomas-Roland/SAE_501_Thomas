@@ -120,8 +120,9 @@ export default {
     lancerAssombrissement() {
       this.darkenEffect = true
       setTimeout(() => {
-        window.location.href = "http://localhost:5173"
-      }, 10000)
+  this.$router.push("/conte19")
+}, 10000)
+
     },
 
     afficherFin() {

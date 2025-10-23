@@ -19,6 +19,11 @@ import Conte15 from './pages/conte15.vue'
 import Conte16 from './pages/conte16.vue'
 import Conte17 from './pages/conte17.vue'
 import Conte18 from './pages/conte18.vue'
+import Conte19 from './pages/conte19.vue'
+import Plan from './pages/plan.vue'
+import Conte20 from './pages/conte20.vue'
+
+
 
 const routes = [
   { path: '/', component: Home },
@@ -41,6 +46,11 @@ const routes = [
   { path: '/conte16', component: Conte16 },
   { path: '/conte17', component: Conte17 },
   { path: '/conte18', component: Conte18 },
+  { path: '/conte19', component: Conte19 },
+  { path: '/plan', component: Plan },
+    { path: '/conte20', component: Conte20 },
+
+
 ]
 
 const router = createRouter({

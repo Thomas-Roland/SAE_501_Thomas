@@ -9,91 +9,29 @@
         </p>
       </div>
 
-      <router-link to="/conte" class="featured-link">
-        <button class="featured-button">
-          Le Festin céleste
-        </button>
-      </router-link>
+      <div class="buttons-section">
+        <router-link to="/conte20" class="featured-link">
+          <button class="featured-button main-button">
+            Le Festin céleste
+          </button>
+        </router-link>
+
+        <router-link to="/plan" class="featured-link">
+          <button class="featured-button secondary-button">
+            Plan du conte
+          </button>
+        </router-link>
+      </div>
       
       <div class="divider"></div>
 
-      <h2 class="section-title">Les Légendes du Grime</h2>
-      
+      <h2 class="section-title">Les Légendes du Grime, bientôt disponibles</h2>
+
       <div class="artists-grid">
-        <button class="artist-button">
+        <button class="artist-button" v-for="(artist, i) in artists" :key="i">
           <div class="artist-info">
-            <strong>Wiley</strong>
-            <span class="artist-desc">The Godfather of Grime</span>
-          </div>
-        </button>
-        
-        <button class="artist-button">
-          <div class="artist-info">
-            <strong>Dizzee Rascal</strong>
-            <span class="artist-desc">Pioneer international du grime</span>
-          </div>
-        </button>
-        
-        <button class="artist-button">
-          <div class="artist-info">
-            <strong>Skepta</strong>
-            <span class="artist-desc">Boy Better Know (BBK)</span>
-          </div>
-        </button>
-        
-        <button class="artist-button">
-          <div class="artist-info">
-            <strong>Jme</strong>
-            <span class="artist-desc">MC et producteur</span>
-          </div>
-        </button>
-        
-        <button class="artist-button">
-          <div class="artist-info">
-            <strong>Kano</strong>
-            <span class="artist-desc">Lyrics et longévité</span>
-          </div>
-        </button>
-        
-        <button class="artist-button">
-          <div class="artist-info">
-            <strong>Lethal Bizzle</strong>
-            <span class="artist-desc">Pow!, Fester Skank</span>
-          </div>
-        </button>
-        
-        <button class="artist-button">
-          <div class="artist-info">
-            <strong>Ghetts</strong>
-            <span class="artist-desc">Technique et charisme</span>
-          </div>
-        </button>
-        
-        <button class="artist-button">
-          <div class="artist-info">
-            <strong>Trim</strong>
-            <span class="artist-desc">Roll Deep, expérimental</span>
-          </div>
-        </button>
-        
-        <button class="artist-button">
-          <div class="artist-info">
-            <strong>Ruff Sqwad</strong>
-            <span class="artist-desc">Collectif influent 2000s</span>
-          </div>
-        </button>
-        
-        <button class="artist-button">
-          <div class="artist-info">
-            <strong>D Double E</strong>
-            <span class="artist-desc">Flow unique, icône underground</span>
-          </div>
-        </button>
-        
-        <button class="artist-button">
-          <div class="artist-info">
-            <strong>P Money</strong>
-            <span class="artist-desc">Clashes et freestyles</span>
+            <strong>{{ artist.name }}</strong>
+            <span class="artist-desc">{{ artist.desc }}</span>
           </div>
         </button>
       </div>
@@ -104,7 +42,29 @@
 <script>
 export default {
   name: "Home",
+  data() {
+    return {
+      artists: [
+        { name: "Blanche-Neige" },
+        { name: "Hansel et Gretel" },
+        { name: "Cendrillon" },
+        { name: "Le Petit Chaperon rouge" },
+        { name: "Raiponce" },
+        { name: "La Belle au bois dormant" },
+        { name: "Les Musiciens de Brême" },
+        { name: "Le Loup et les sept chevreaux" },
+        { name: "Le Roi Grenouille (ou Henri de Fer)" },
+        { name: "Le Pêcheur et sa femme" },
+        { name: "Les Six Cygnes" },
+        { name: "Le Vaillant Petit Tailleur" },
+      ],
+    };
+  },
 };
+
+
+
+
 </script>
 
 <style scoped>
@@ -118,10 +78,7 @@ export default {
 .home::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background-image: 
     radial-gradient(circle at 20% 30%, rgba(197, 173, 106, 0.1) 0%, transparent 50%),
     radial-gradient(circle at 80% 70%, rgba(214, 212, 206, 0.15) 0%, transparent 50%);
@@ -137,18 +94,13 @@ export default {
 
 .header-section {
   margin-bottom: 3rem;
+  text-align: center;
   animation: fadeIn 0.8s ease-out;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .main-title {
@@ -157,7 +109,6 @@ export default {
   margin-bottom: 1.5rem;
   font-weight: 700;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-  line-height: 1.3;
 }
 
 .subtitle {
@@ -168,42 +119,54 @@ export default {
   line-height: 1.8;
 }
 
+.buttons-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 2.5rem 0 3.5rem;
+}
+
 .featured-link {
   text-decoration: none;
-  display: inline-block;
-  margin: 2rem 0;
 }
 
 .featured-button {
-  font-size: 1.5rem;
-  padding: 1.5rem 3rem;
-  border-radius: 15px;
-  background: linear-gradient(135deg, #d4af37 0%, #c5ad6a 100%);
   border: none;
+  border-radius: 15px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 6px 20px rgba(197, 173, 106, 0.4);
   color: #fff;
   font-weight: 600;
+  box-shadow: 0 6px 20px rgba(197, 173, 106, 0.4);
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: center;
 }
 
-.featured-button:hover {
+.main-button {
+  font-size: 1.6rem;
+  padding: 1.5rem 3.5rem;
+  background: linear-gradient(135deg, #d4af37 0%, #c5ad6a 100%);
+}
+
+.main-button:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 30px rgba(197, 173, 106, 0.6);
   background: linear-gradient(135deg, #e0ba3f 0%, #d4af37 100%);
 }
 
-.button-icon {
-  font-size: 1.3rem;
-  animation: sparkle 2s infinite;
+.secondary-button {
+  font-size: 1.1rem;
+  padding: 0.9rem 2rem;
+  background: linear-gradient(135deg, #c5ad6a 0%, #b89c56 100%);
+  opacity: 0.95;
 }
 
-@keyframes sparkle {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.2); }
+.secondary-button:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, #d4af37 0%, #c5ad6a 100%);
+  box-shadow: 0 8px 25px rgba(197, 173, 106, 0.5);
 }
 
 .divider {
@@ -217,12 +180,13 @@ export default {
   font-size: 2rem;
   color: #5a4a2f;
   margin-bottom: 2rem;
+  text-align: center;
   font-weight: 600;
 }
 
 .artists-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
   animation: fadeIn 1s ease-out 0.3s both;
@@ -265,21 +229,10 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .main-title {
-    font-size: 2rem;
-  }
-  
-  .subtitle {
-    font-size: 1rem;
-  }
-  
-  .featured-button {
-    font-size: 1.2rem;
-    padding: 1.2rem 2rem;
-  }
-  
-  .artists-grid {
-    grid-template-columns: 1fr;
-  }
+  .main-title { font-size: 2rem; }
+  .subtitle { font-size: 1rem; }
+  .main-button { font-size: 1.3rem; padding: 1.2rem 2.5rem; }
+  .secondary-button { font-size: 1rem; padding: 0.8rem 1.8rem; }
+  .artists-grid { grid-template-columns: 1fr; }
 }
 </style>
